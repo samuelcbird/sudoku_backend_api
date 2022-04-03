@@ -1,4 +1,6 @@
 def create_square_slice(index: int, whole_puzzle: list[int]) -> list[int]:
+  block_to_slice: list[int] = None
+  slice_to_return: list[int] = None
 
   sudoku_blocks: list[list[int]] = [
     [0,  1,  2,  9,  10, 11, 18, 19, 20],
@@ -12,10 +14,17 @@ def create_square_slice(index: int, whole_puzzle: list[int]) -> list[int]:
     [60, 61, 62, 69, 70, 71, 78, 79, 80]
   ]
 
-  block_indexes_to_return = None
-
   for block in sudoku_blocks:
     if block.count(index) > 0:
-      block_indexes_to_return = block
+      block_to_slice = block
 
+  for index in block_to_slice:
+    slice_to_return.append(whole_puzzle[index])
+
+  return slice_to_return
+  
+def create_vertical_slice(index: int, whole_puzzle: list[int]) -> list[int]:
+  top_line_index: int = index % 9
+
+  return range(top_line_index, 80, 9)
   
