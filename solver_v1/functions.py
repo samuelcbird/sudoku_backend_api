@@ -22,10 +22,36 @@ def create_square_slice(index: int, whole_puzzle: list[int]) -> list[int]:
     slice_to_return.append(whole_puzzle[index])
 
   return slice_to_return
-  
+
 
 def create_vertical_slice(index: int, whole_puzzle: list[int]) -> list[int]:
   top_line_index: int = index % 9
+  slice_to_return: list[int] = []
 
-  return list(range(top_line_index, 80, 9))
+  for i in range(top_line_index, 80, 9):
+    slice_to_return.append(whole_puzzle[i])
+
+  return slice_to_return
+  
+
+def create_horizontal_slice(index: int, whole_puzzle: list[int]) -> list[int]:
+  start_of_row: int = index
+
+  while start_of_row % 9 != 0:
+    start_of_row -= 1
+
+  return whole_puzzle[start_of_row:start_of_row+9]
+
+
+def number_is_valid(index: int, whole_puzzle: list[int]) -> bool:
+  index_value = whole_puzzle[index]
+
+  if create_square_slice(index, whole_puzzle).count(index_value) > 1:
+    return False
+  elif create_vertical_slice(index, whole_puzzle).count(index_value) > 1:
+    return False
+  elif create_horizontal_slice(index, whole_puzzle).count(index_value) > 1:
+    return False
+
+  return True
   
