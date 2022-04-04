@@ -32,6 +32,7 @@ class TestSolverFunctions(unittest.TestCase):
     self.assertEqual(create_vertical_slice(34, self.test_input), self.expected_vert_slice)
 
   def test_number_is_valid(self):
+    self.maxDiff = None
     self.assertTrue(number_is_valid(68, self.test_input))
     self.assertFalse(number_is_valid(64, self.test_input))
 
