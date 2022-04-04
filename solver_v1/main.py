@@ -6,9 +6,9 @@ iterator = Iterator()
 
 def solve_sudoku_puzzle(sudoku_puzzle: list[int]) -> list[int]:
   ORIGINAL_INPUT: list[int] = sudoku_puzzle
-  working_solution: list[int] = sudoku_puzzle
+  working_solution: list[int] = sudoku_puzzle.copy()
 
-  while iterator.getCurrentIteration() < 80:
+  while iterator.getCurrentIteration() < 81:
     # check for locked value
     if ORIGINAL_INPUT[iterator.getCurrentIteration()] > 0:
 
@@ -23,7 +23,7 @@ def solve_sudoku_puzzle(sudoku_puzzle: list[int]) -> list[int]:
 
     
     while working_solution[iterator.getCurrentIteration()] < 10:
-      iterator.incrementOne()
+      working_solution[iterator.getCurrentIteration()] += 1
 
       if working_solution[iterator.getCurrentIteration()] > 9:
         

@@ -1,5 +1,5 @@
 def create_square_slice(index: int, whole_puzzle: list[int]) -> list[int]:
-  block_to_slice: list[int] = None
+  block_to_slice: list[int] = []
   slice_to_return: list[int] = []
 
   sudoku_blocks: list[list[int]] = [
@@ -17,6 +17,7 @@ def create_square_slice(index: int, whole_puzzle: list[int]) -> list[int]:
   for block in sudoku_blocks:
     if block.count(index) > 0:
       block_to_slice = block
+      break
 
   for index in block_to_slice:
     slice_to_return.append(whole_puzzle[index])

@@ -8,14 +8,7 @@
       "name": "Python: Module",
       "type": "python",
       "request": "launch",
-      "module": "solver_v1.main",
-      "justMyCode": true
-    },
-    {
-      "name": "Python: Module",
-      "type": "python",
-      "request": "launch",
-      "module": "main",
+      "module": "tests.solver_v1.test_functions",
       "justMyCode": true
     }
   ]

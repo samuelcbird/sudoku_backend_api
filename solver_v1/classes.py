@@ -1,7 +1,7 @@
 class Iterator:
   def __init__(self, start_at: int = 0):
     self._current_iteration: int = start_at
-    self._previous_iteration: int = None
+    self._previous_iteration: int = 0
 
   def _setPreviousIteration(self, to: int):
     self._previous_iteration = to
