@@ -1,10 +1,9 @@
 from solver_v1.functions import number_is_valid
 from solver_v1.classes import Iterator
 
-iterator = Iterator()
-
 
 def solve_sudoku_puzzle(sudoku_puzzle: list[int]) -> list[int]:
+  iterator = Iterator()
   ORIGINAL_INPUT: list[int] = sudoku_puzzle
   working_solution: list[int] = sudoku_puzzle.copy()
 
