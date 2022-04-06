@@ -20,17 +20,18 @@ def backtracker(sudoku_puzzle: list[int]) -> list[int]:
       continue
 
     
+    # try a number the current index, starting at 1
     while working_solution[iterator.getCurrentIteration()] < 10:
       working_solution[iterator.getCurrentIteration()] += 1
 
+      # if we've tried 1 - 9 and none are valid, we'll go back
       if working_solution[iterator.getCurrentIteration()] > 9:
-        
         working_solution[iterator.getCurrentIteration()] = 0
         iterator.decrementOne()
         break
 
+      # if if a number is valid we'll move on 
       elif number_is_valid(iterator.getCurrentIteration(), working_solution):
-
         iterator.incrementOne()
         break
 

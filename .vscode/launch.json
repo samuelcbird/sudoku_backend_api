@@ -5,6 +5,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "v2 test_functions",
+      "type": "python",
+      "request": "launch",
+      "module": "tests.solver_v2.test_functions",
+      "justMyCode": true
+    },
+    {
       "name": "Python: Current File",
       "type": "python",
       "request": "launch",
@@ -13,7 +20,7 @@
       "justMyCode": true
     },
     {
-      "name": "Python: Module",
+      "name": "v1 test_functions",
       "type": "python",
       "request": "launch",
       "module": "tests.solver_v1.test_functions",
