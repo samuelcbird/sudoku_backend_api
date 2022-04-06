@@ -1,2 +1,4 @@
 // ignore pycache stuff everywhere
-*.pyc
+
+**/*.pyc
+**/.DS_Store
