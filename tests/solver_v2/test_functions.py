@@ -6,7 +6,7 @@ from solver_v2.main import solver_v2
 
 class TestSolverV2Functions(unittest.TestCase):
 
-  def test_solve_sudoku_puzzle(self):
+  def test_solver_v2(self):
     self.assertEqual(figure_absolutes(test_puzzles['puzzle_1']), test_puzzles['solution_1']) 
 
 

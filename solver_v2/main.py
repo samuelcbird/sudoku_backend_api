@@ -4,4 +4,5 @@ from solver_v1.main import backtracker
 
 def solver_v2(sudoku_puzzle: list[int]) -> list[int]: 
   half_solved = figure_absolutes(sudoku_puzzle)
+  print(half_solved)
   return backtracker(half_solved)
