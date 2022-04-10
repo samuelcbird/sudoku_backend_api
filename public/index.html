@@ -7,24 +7,80 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
   <script src="https://kit.fontawesome.com/2879803616.js" crossorigin="anonymous"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- google fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      line-height: 32px;
+    }
+  </style>
   <title>sudoku solver api</title>
 </head>
-<body>
-  <nav class="navbar has-background-info level">
-    <div class="container ">
+<body class="has-navbar-fixed-top">
+  <nav class="navbar has-background-info level is-fixed-top">
+    <div class="container navbar-start">
       <div class="navbar-brand">
-        <div class="navbar-item title is-2 has-text-weight-semibold has-text-light ">Sudoku Solver API</div>
+        <div class="navbar-item title is-2 has-text-weight-bold has-text-light ">Sudoku Solver API</div>
       </div>
-      <div class="navbar-item"><a class="has-text-light is-underlined" href="https://www.samuelcbird.co.uk" target="_blank">by Samuel Charles Bird</a></div>
+      <div class="navbar-item"><a class="has-text-light is-underlined has-text-weight-semibold" href="https://www.samuelcbird.co.uk" target="_blank">by Samuel Charles Bird</a></div>
       <div class="navbar-end">
-        <span class="navbar-item bulma-fa-mixin"><span class="is-size-4 has-text-light fa-brands fa-github"></span></span>
+        <span class="navbar-item"><span class="is-size-4 has-text-light fa-brands fa-github"></span></span>
       </div>
     </div>
   </nav>
+    
+  <section class="hero is-large ">
+    <div class="hero-body">
+      <h1 class="title is-3 is-spaced" id="about">
+        <a href="#about" class="is-link">#</a>
+        <span>About</span>
+      </h1>
+      <div class="content">
+        <p>
+          This is a project that has helped me learn about creating a simple API backend with <strong>Python</strong> and <strong>FastApi</strong> whilst improving my writing of algorithms.
+        </p>
+        <p>
+          In 2021 I built a purely front end sudoku solver <a href="https://samuelcbird.github.io/sudoku_solver/">(take a look for yourself)</a> using a very modest stack: <strong>HTML</strong>, <strong>Sass</strong> and <strong>Typescript</strong>. There were some problems with this project: sometimes it couldn't solve the sudoku; the code wasn't well organised; I was dealing with UI functionality in the same code that was solving the puzzle. 
+        </p>
+        <p>
+          Fast-forward to 2022 and I'm taking an interest in back end web development and this API is born. I have rethought and reorganised the code and success (!), there appears to be no bugs and the algorithm works as intended. Additionally whilst debugging and testing the code I noticed a pattern which lead me to a new algorithm that is much more efficient. 
+        </p>
+        <a href="#endpoints"><span class="fa-solid fa-arrow-down-long is-size-3 mt-6 has-text-info"></span></a>
+      </div>
+    </div>
+  </section>
 
-  <main class="container is-max-desktop pt-6">
-    Hi
-  </main>  
+  <section class="hero is-large">
+    <div class="hero-body content">
+      <h1 class="title is-3 is-spaced" id="endpoints">
+        <a href="#endpoints" class="is-link">#</a>
+        <span>Endpoints</span>
+      </h1>
+      <h3>/solve</h3>
+      <p>
+        To use this API to solve a sudoku you must sumbit a <b>HTTP POST</b> request to this endpoint and the request body must contain a valid input. The following JSON object is a valid input:
+      </p>
+<pre class="mb-6">
+{
+  "puzzle": [
+    0, 7, 0, 0, 0, 0, 0, 0, 0, 5, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 4, 1, 0, 0, 0, 0, 0, 2, 0, 0, 7, 3, 0, 8, 0, 0, 0, 0, 0, 0, 2, 6, 0, 0, 1, 0, 0, 5, 4, 0, 0, 3, 0, 8, 0, 0, 0, 0, 0, 0, 6, 0, 0, 1, 0, 7, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 8, 0
+  ]
+}
+</pre>
+      <h3>/solve/?v1=true</h3>
+      <p>
+        By default, when just using <code>/solve</code>, this endpoint will use <strong>Version 2.0</strong> of my solving algorithm. This is the fastest and most efficient option. However, you can use <b>Version 1</b> by specifying a query in the URL as demonstrated just above.
+      </p>
+      
+    </div>
+  </section>
   
 </body>
 </html>
