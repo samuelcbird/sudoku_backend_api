@@ -5,6 +5,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "helper",
+      "type": "python",
+      "request": "launch",
+      "module": "tests.helper.test_function",
+      "justMyCode": true
+    },
+    {
       "name": "v2 test_functions",
       "type": "python",
       "request": "launch",

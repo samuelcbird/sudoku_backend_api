@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta name="description" content="An API built by Samuel Bird which will solve sudoku puzzles or show you where you're going wrong." />
+  <meta name="robots" content="index, follow" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
   <script src="https://kit.fontawesome.com/2879803616.js" crossorigin="anonymous"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <link rel="shortcut icon" type="image/jpg" href="static/apple-touch-icon.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="static/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="static/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="static/favicon-16x16.png" />
+  <link rel="manifest" href="static/site.webmanifest" />
+  <link rel="mask-icon" href="static/safari-pinned-tab.svg" color="#5bbad5" />
+  <meta name="msapplication-TileColor" content="#232323" />
+  <meta name="theme-color" content="#232323" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />
 
   <!-- google fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -65,7 +77,7 @@
           To use this endpoint to solve a sudoku you must sumbit an <strong>HTTP POST request</strong> to this endpoint and the request body must contain a valid input. 
         </p>
         <p>
-          A valid input is a JSON object containing an array of 81 numbers (the incomplete sudoku puzzle) where the blank sudoku fields are represented by a <code>0</code>. Like so:
+          A valid input is a JSON object containing an array named <code>"puzzle"</code> of 81 numbers (the incomplete sudoku puzzle) where the blank sudoku fields are represented by a <code>0</code>. Like so:
         </p>
 <pre class="mb-6" style="line-height: 22px;">
 {
@@ -99,7 +111,35 @@
           This endpoint is a helpful tool which won't give you the solution of the sudoku puzzle, but instead will show you the fields that are incorrect in an unfinished puzzle.
         </p>
         <p>
-          Just as before, to use this endpoint you must sumbit an <strong>HTTP POST request</strong>. The input is in the same format.
+          Just as before, to use this endpoint you must sumbit an <strong>HTTP POST request</strong>. However, the input must be a JSON object containing <strong>two arrays.</strong> One being the original, unsolved puzzle: named <code>unsolved_puzzle</code>; and the other being the attempt that has been made to solve it: named <code>attempted_puzzle</code>. Like so:
+
+<pre class="mb-6" style="line-height: 22px;">
+  {
+      "unsolved_puzzle": [
+        0, 5, 9, 0, 0, 0, 0, 0, 0,
+        6, 0, 0, 0, 0, 0, 2, 3, 4,
+        8, 0, 0, 0, 0, 6, 0, 0, 0,
+        9, 0, 0, 3, 6, 0, 7, 5, 0,
+        0, 0, 0, 2, 0, 0, 0, 0, 8,
+        5, 0, 8, 9, 0, 7, 0, 0, 2,
+        0, 6, 5, 0, 0, 0, 9, 4, 0,
+        7, 0, 2, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0
+      ],
+      "attempted_puzzle": [
+        0, 5, 9, 0, 4, 0, 0, 8, 0,
+        6, 0, 0, 0, 0, 4, 2, 3, 4,
+        8, 0, 3, 0, 0, 6, 0, 0, 0,
+        9, 0, 0, 3, 6, 2, 7, 5, 0,
+        0, 0, 0, 2, 0, 0, 0, 0, 8,
+        5, 0, 8, 9, 6, 7, 0, 0, 2,
+        0, 6, 5, 0, 0, 0, 9, 4, 0,
+        7, 0, 2, 0, 0, 0, 9, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0
+      ]
+  }
+  </pre>
+
         </p>
         <p class="has-text-centered mt-6"><a href="#responses" class="fa-solid fa-arrow-down-long is-size-3 has-text-info"></a></p>
       </div>
@@ -116,7 +156,7 @@
       <div class="content">
         <h3 class="mt-6">/solve</h3>
         <p>
-          The response object from the <strong>/solve</strong> endpoint will be in the form of a <strong>JSON object</strong> containing two arrays: the first being the original incomplete puzzle which was sent with the request; the second being the solutiion.
+          The response data from the <strong>/solve</strong> endpoint will be in the form of a <strong>JSON object</strong> containing two arrays: the first being the original incomplete puzzle which was sent with the request; the second being the solutiion.
         </p>
         <h3 class="mt-6">/help</h3>
         <p>
@@ -135,13 +175,13 @@
         <span>About</span>
       </h1>
       <div class="content">
-        <p>
-          This is a project that has helped me learn about creating a simple API backend with <strong>Python</strong> and <strong>FastApi</strong> whilst improving my writing of algorithms.
+        <p class="mb-6">
+          This is a project that has helped me learn about creating a simple API backend with <strong><a href="https://www.python.org/">Python</a></strong> and <strong><a href="https://fastapi.tiangolo.com/">FastAPI</a></strong> whilst improving my writing of algorithms.
         </p>
-        <p>
+        <p class="mb-6">
           In 2021 I built a purely front end sudoku solver <a href="https://samuelcbird.github.io/sudoku_solver/">(take a look for yourself)</a> using a very modest stack: <strong>HTML</strong>, <strong>Sass</strong> and <strong>Typescript</strong>. There were some problems with this project: sometimes it couldn't solve the sudoku; the code wasn't well organised; I was dealing with UI functionality in the same code that was solving the puzzle. 
         </p>
-        <p>
+        <p class="mb-6">
           Fast-forward to 2022 and I'm taking an interest in back end web development and this API is born. I have rethought and reorganised the code and success (!), there appears to be no bugs and the algorithm works as intended. Additionally whilst debugging and testing the code I noticed a pattern which lead me to a new algorithm that is much more efficient. 
         </p>
         <p class="has-text-centered mt-6"><a href="#landing" class="fa-solid fa-arrow-up-long is-size-3 has-text-info"></a></p>

@@ -1,6 +1,8 @@
 import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from helper.main import helper
 from solver_v1.main import backtracker
@@ -10,17 +12,22 @@ from solver_v2.main import solver_v2
 class SolveRequest(BaseModel):
   puzzle: list[int]
 
+class HelperRequest(BaseModel):
+  unsolved_puzzle: list[int]
+  attempted_puzzle: list[int]
+
 # response
 class SolveResponse(BaseModel):
   input: list[int]
   solution: list[int]
 
 class HelperResponse(BaseModel):
-  input: list[int]
+  attempted_puzzle: list[int]
   incorrect_indexes: list[int]
 
 app = FastAPI()
 
+app.mount("/static", StaticFiles(directory="public/favicon_package"), name="static")
 
 @app.get('/')
 async def root():
@@ -30,15 +37,18 @@ async def root():
 async def solve(request: SolveRequest, v1: bool = False):
   if not v1:
     solution: list[int] = solver_v2(request.puzzle)
-    return { 'input': request.puzzle, 'solution': solution }
+    response = { 'input': request.puzzle, 'solution': solution }
   else:
     solution: list[int] = backtracker(request.puzzle)
-    return { 'input': request.puzzle, 'solution': solution}
+    response = { 'input': request.puzzle, 'solution': solution }
+
+  return JSONResponse(content=response)
   
 @app.post('/help/', response_model=HelperResponse)
-async def help(request: SolveRequest):
-  response = helper(request.puzzle)
-  return { 'input': request.puzzle, 'incorrect_indexes': response }
+async def help(request: HelperRequest):
+  incorrect_indexes = helper(request.unsolved_puzzle, request.attempted_puzzle)
+  response = { 'attempted_puzzle': request.attempted_puzzle, 'incorrect_indexes': incorrect_indexes }
+  return JSONResponse(content=response)
 
 if __name__ == "__main__":
   uvicorn.run(app, host="0.0.0.0", port=8000)

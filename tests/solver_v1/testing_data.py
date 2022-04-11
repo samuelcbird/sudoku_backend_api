@@ -136,9 +136,9 @@ test_helper_puzzles: dict[list[int]] = {
     0, 0, 0, 0, 0, 0, 0, 0, 0,
   ],
   'response_1': [
-    2, 25, 70
+    2, 25, 69
   ],
   'response_2': [
-    40, 68, 69
+    40, 69, 70
   ]
 }
