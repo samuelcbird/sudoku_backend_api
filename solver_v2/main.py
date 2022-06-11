@@ -1,4 +1,3 @@
-from turtle import back
 from solver_v2.functions import figure_absolutes
 from solver_v1.main import backtracker
 

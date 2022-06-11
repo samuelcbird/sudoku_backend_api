@@ -7,7 +7,10 @@ from solver_v2.main import solver_v2
 class TestSolverV2Functions(unittest.TestCase):
 
   def test_solver_v2(self):
-    self.assertEqual(solver_v2(test_puzzles['puzzle_1']), test_puzzles['solution_1']) 
+    self.assertEqual(solver_v2(test_puzzles['puzzle_1']), test_puzzles['solution_1'])
+
+  def test_abs(self):
+    self.assertEqual(figure_absolutes(test_puzzles['puzzle_2']), test_puzzles['solution_2_absolutes'])
 
 
 if __name__ == "__main__":
