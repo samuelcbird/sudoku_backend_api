@@ -1,5 +1,5 @@
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import JSONResponse
@@ -34,11 +34,14 @@ async def root():
 
 @app.post('/solve/', response_model=SolveResponse)
 async def solve(request: SolveRequest):
-  solver = Solution(request.puzzle)
-  solution: list[int] = solver.full_solution()
-  response = { 'input': request.puzzle, 'solution': solution }
+  try:
+    solver = Solution(request.puzzle)
+    solution: list[int] = solver.full_solution()
+    response = { 'input': request.puzzle, 'solution': solution }
+    return JSONResponse(content=response)
+  except Exception as E:
+    raise HTTPException(status_code=400, detail='Bad request.')
 
-  return JSONResponse(content=response)
   
 @app.post('/help/', response_model=HelperResponse)
 async def help(request: HelperRequest):

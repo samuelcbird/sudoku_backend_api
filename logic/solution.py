@@ -1,5 +1,8 @@
 from logic.iterator.iterator import Iterator
+from logic.validation.validation import check_length, check_givens
 
+@check_length
+@check_givens
 class Solution:
   def __init__(self, unsolvedPuzzle: list[int], halfFinishedPuzzle: list[int] = None):
     self.unsolved_puzzle: list[int] = unsolvedPuzzle
