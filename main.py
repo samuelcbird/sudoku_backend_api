@@ -1,28 +1,10 @@
+import logging
 import uvicorn
-from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import JSONResponse
-from pydantic import BaseModel
+from schemas.schemas import SolveRequest, HelperRequest, SolveResponse, HelperResponse
 from logic.solution import Solution
-
-
-# Schema for posting a puzzle to be solved
-class SolveRequest(BaseModel):
-  puzzle: list[int]
-
-class HelperRequest(BaseModel):
-  unsolved_puzzle: list[int]
-  attempted_puzzle: list[int]
-
-# response
-class SolveResponse(BaseModel):
-  input: list[int]
-  solution: list[int]
-
-class HelperResponse(BaseModel):
-  attempted_puzzle: list[int]
-  incorrect_indexes: list[int]
 
 app = FastAPI()
 
@@ -40,6 +22,7 @@ async def solve(request: SolveRequest):
     response = { 'input': request.puzzle, 'solution': solution }
     return JSONResponse(content=response)
   except Exception as E:
+    logging.error(E)
     raise HTTPException(status_code=400, detail='Bad request.')
 
   

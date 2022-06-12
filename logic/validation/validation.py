@@ -2,11 +2,11 @@ def check_length(func):
   def validate(*inputs):
     for input in inputs:
       if len(input) < 81 or len(input) > 81:
-        raise Exception("Invalid Puzzle Length")
+        raise Exception('Invalid puzzle length.')
     func(*inputs)
   return validate
 
-def check_givens(func):
+def check_givens(func): # needs testing / debugging
   def validate(*inputs):
     givens: int
 
