@@ -1,5 +1,5 @@
 import unittest
-from tests.solver_v1.testing_data import test_puzzles, test_slices
+from tests.testing_data import test_puzzles, test_slices
 from logic.solution import Solution
 
 class SolutionTests(unittest.TestCase):
