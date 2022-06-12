@@ -1,4 +1,3 @@
-from hashlib import new
 import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
@@ -7,7 +6,6 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from logic.solution import Solution
 
-from helper.main import helper
 
 # Schema for posting a puzzle to be solved
 class SolveRequest(BaseModel):
@@ -44,10 +42,12 @@ async def solve(request: SolveRequest):
   
 @app.post('/help/', response_model=HelperResponse)
 async def help(request: HelperRequest):
-  # DEPRECATED
-  incorrect_indexes = helper(request.unsolved_puzzle, request.attempted_puzzle)
+  solver = Solution(request.unsolved_puzzle, request.attempted_puzzle)
+  incorrect_indexes: list[int] = solver.show_incorrect_answers()
   response = { 'attempted_puzzle': request.attempted_puzzle, 'incorrect_indexes': incorrect_indexes }
+
   return JSONResponse(content=response)
+
 
 if __name__ == "__main__":
   uvicorn.run(app, host="0.0.0.0", port=8000)
