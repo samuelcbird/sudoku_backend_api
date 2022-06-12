@@ -8,9 +8,6 @@ from pydantic import BaseModel
 from logic.solution import Solution
 
 from helper.main import helper
-# DEPRECATED
-# from solver_v1.main import backtracker
-# from solver_v2.main import solver_v2
 
 # Schema for posting a puzzle to be solved
 class SolveRequest(BaseModel):
@@ -42,10 +39,6 @@ async def solve(request: SolveRequest):
   solver = Solution(request.puzzle)
   solution: list[int] = solver.full_solution()
   response = { 'input': request.puzzle, 'solution': solution }
-
-  # DEPRECATED
-  # solution: list[int] = solver_v2(request.puzzle)
-  # response = { 'input': request.puzzle, 'solution': solution }
 
   return JSONResponse(content=response)
   

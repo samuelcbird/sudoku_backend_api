@@ -4,15 +4,17 @@ class Solution:
   def __init__(self, unsolvedPuzzle: list[int], halfFinishedPuzzle: list[int] = None):
     self.unsolved_puzzle: list[int] = unsolvedPuzzle
     self.half_finished_puzzle: list[int] = halfFinishedPuzzle
-    self.finished_puzzle: list[int] = None
+    self.solved_puzzle: list[int] = None
 
-  def show_incorrect_answers(self):
+  def show_incorrect_answers(self) -> list[int]:
     if self.half_finished_puzzle == None:
       # raise error
       return
     else:
       solution: list[int] = self.full_solution(self.unsolved_puzzle)
+      self.solved_puzzle = solution
       half_finished: list[int] = self.half_finished_puzzle
+
       incorrect_indexes: list[int] = []
 
       for i in range(81):
@@ -24,7 +26,7 @@ class Solution:
               
       return incorrect_indexes
 
-  def full_solution(self, puzzleToSolve: list[int] = None):
+  def full_solution(self, puzzleToSolve: list[int] = None) -> list[int]:
     unsolved: list[int]
 
     if puzzleToSolve is None:
@@ -33,7 +35,9 @@ class Solution:
       unsolved = puzzleToSolve
 
     find_absolute_answers: list[int] = self._figure_absolutes(unsolved)
-    return self._backtracker(find_absolute_answers)
+    
+    self.solved_puzzle = self._backtracker(find_absolute_answers)
+    return self.solved_puzzle
 
   def _figure_absolutes(self, sudoku_puzzle: list[int]) -> list[int]:
     """ Fill the fields in a sudoku that can absolutely only be that number, beginning with 9, working down to 1. """
