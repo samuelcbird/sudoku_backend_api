@@ -24,8 +24,14 @@ class Solution:
               
       return incorrect_indexes
 
-  def full_solution(self):
-    unsolved: list[int] = self.unsolved_puzzle.copy()
+  def full_solution(self, puzzleToSolve: list[int] = None):
+    unsolved: list[int]
+
+    if puzzleToSolve is None:
+      unsolved = self.unsolved_puzzle.copy()
+    else :
+      unsolved = puzzleToSolve
+
     find_absolute_answers: list[int] = self._figure_absolutes(unsolved)
     return self._backtracker(find_absolute_answers)
 
@@ -80,20 +86,20 @@ class Solution:
         continue
 
     
-    # try a number the current index, starting at 1
-    while working_solution[iterator.getCurrentIteration()] < 10:
-      working_solution[iterator.getCurrentIteration()] += 1
+      # try a number at the current index, starting at 1
+      while working_solution[iterator.getCurrentIteration()] < 10:
+        working_solution[iterator.getCurrentIteration()] += 1
 
-      # if we've tried 1 - 9 and none are valid, we'll go back
-      if working_solution[iterator.getCurrentIteration()] > 9:
-        working_solution[iterator.getCurrentIteration()] = 0
-        iterator.decrementOne()
-        break
+        # if we've tried 1 - 9 and none are valid, we'll go back
+        if working_solution[iterator.getCurrentIteration()] > 9:
+          working_solution[iterator.getCurrentIteration()] = 0
+          iterator.decrementOne()
+          break
 
-      # if if a number is valid we'll move on 
-      elif self._number_is_valid(iterator.getCurrentIteration(), working_solution):
-        iterator.incrementOne()
-        break
+        # if if a number is valid we'll move on 
+        elif self._number_is_valid(iterator.getCurrentIteration(), working_solution):
+          iterator.incrementOne()
+          break
 
     return working_solution
 
@@ -145,7 +151,6 @@ class Solution:
 
 
   def _number_is_valid(self, index: int, whole_puzzle: list[int]) -> bool:
-    print(whole_puzzle)
     index_value = whole_puzzle[index]
 
     if self._create_square_slice(index, whole_puzzle).count(index_value) > 1:
@@ -154,3 +159,5 @@ class Solution:
       return False
     elif self._create_horizontal_slice(index, whole_puzzle).count(index_value) > 1:
       return False
+
+    return True
