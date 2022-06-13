@@ -1,6 +1,5 @@
-import logging
 import uvicorn
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, status
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from schemas.schemas import SolveRequest, HelperRequest, SolveResponse, HelperResponse
@@ -22,8 +21,7 @@ async def solve(request: SolveRequest):
     response = { 'input': request.puzzle, 'solution': solution }
     return JSONResponse(content=response)
   except Exception as E:
-    logging.error(E)
-    raise HTTPException(status_code=400, detail='Bad request.')
+    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(E))
 
   
 @app.post('/help/', response_model=HelperResponse)
