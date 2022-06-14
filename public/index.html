@@ -156,6 +156,47 @@
         <p>
           Similarly, the response from the <strong>/help</strong> endpoint will be a <strong>JSON object</strong> of two arrays: the first being the half completed puzzle sent with the request; the second being an array showing the indexes of incorrect entries in the puzzle (starting at a <code>0</code> index).
         </p>
+        <p class="has-text-centered mt-6"><a href="#exceptions" class="fa-solid fa-arrow-down-long is-size-3 has-text-info"></a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXCEPTIONS -->
+  <section id="exceptions" class="hero is-fullheight-with-navbar">
+    <div class="container is-max-desktop hero-body is-flex-direction-column is-justify-content-center is-align-items-flex-start">
+      <h1 class="title is-3">
+        <a href="#exceptions" class="is-link">#</a>
+        <span>Exceptions</span>
+      </h1>
+      <div class="content">
+        <h3 class="mt-6">HTTP Status Code 400</h3>
+        <p>
+          Sometimes when making a request you might receive an HTTP Status Code of <strong>400</strong>. This status code represents exceptions that I have built into the API. Any server response with this status code will also return an object explaining the reason for the exception. It will be one of the reasons described below.
+        </p>
+        <p>
+          The response model will be like so:
+<pre class="mb-6" style="line-height: 22px;">
+  {
+    detail: "Invalid puzzle length."
+  }
+</pre>
+        </p>
+        <h3 class="mt-6">Invalid Puzzle Length</h3>
+        <p>
+          This will be returned if any of the arrays in the request model have either more or less than 81 integers.
+        </p>
+        <h3 class="mt-6">Insufficient Given Numbers.</h3>
+        <p>
+          This will be returned if there is less than 17 given starting values (1-9) in the empty puzzle. As explained <strong><a href="http://sudopedia.enjoysudoku.com/Invalid_Test_Cases.html#Insufficient_Givens">here</a></strong>, this does not qualify as a Classic Sudoku puzzle, and will either result in multiple solutions, or the inability to find a solution.
+        </p>
+        <h3 class="mt-6">Duplicate Given in Row, Column or Box.</h3>
+        <p>
+          This will be returned if, in a row, column or box of the sudoku, there is more than one number of the same value (1-9). It will specifically detail if it is a row, column or box that includes the duplicate.
+        </p>
+        <h3 class="mt-6">Caveats</h3>
+        <p>
+          The API will raise an exception and return the error at the first offence, so in the event of there being more than one error in the request it will only specify the first one it finds.
+        </p>
         <p class="has-text-centered mt-6"><a href="#about" class="fa-solid fa-arrow-down-long is-size-3 has-text-info"></a></p>
       </div>
     </div>
@@ -173,7 +214,7 @@
           This is a project that has helped me learn about creating an API backend with <strong><a href="https://www.python.org/">Python</a></strong> and <strong><a href="https://fastapi.tiangolo.com/">FastAPI</a></strong> whilst improving my writing of algorithms.
         </p>
         <p class="mb-6">
-          In 2021 I built a purely front end sudoku solver <a href="https://samuelcbird.github.io/sudoku_solver/">(take a look for yourself)</a> using a very modest stack: <strong>HTML</strong>, <strong>CSS</strong> and <strong>Typescript</strong>. There were some problems with this project: sometimes it couldn't solve the sudoku; the code wasn't well organised; I was dealing with UI functionality in the same code that was solving the puzzle. 
+          In 2021 I built a purely front end sudoku solver <a href="https://samuelcbird.github.io/sudoku_solver/">(take a look for yourself)</a> using a very modest stack: <strong>HTML</strong>, <strong>CSS</strong> and <strong>Typescript</strong>. There were some problems with this project: sometimes it couldn't solve the sudoku and got stuck in an infinite loop; the code wasn't well organised; I was dealing with UI functionality in the same code that was solving the puzzle. 
         </p>
         <p class="mb-6">
           Fast-forward to 2022 and I'm taking an interest in back end web development and this API is born. I have rethought and reorganised the code and success (!), there appears to be no bugs and the algorithm works as intended. Additionally whilst debugging and testing the code I noticed a pattern which lead me to a new algorithm that is much more efficient. 

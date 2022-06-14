@@ -18,7 +18,7 @@ def check_amount_of_givens(func):
         numbers_given += 1
 
     if numbers_given < 17:
-      raise Exception('Insufficient Given Numbers')
+      raise Exception('Insufficient given numbers')
   
     return func(*puzzles)
   return validate
