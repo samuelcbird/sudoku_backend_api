@@ -2,10 +2,17 @@ import uvicorn
 from fastapi import FastAPI, HTTPException, status
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 from schemas.schemas import SolveRequest, HelperRequest, SolveResponse, HelperResponse
 from logic.solution import Solution
 
 app = FastAPI()
+
+app.add_middleware(
+  CORSMiddleware,
+  allow_origins=['*'],
+  allow_methods=['POST'],
+)
 
 app.mount("/static", StaticFiles(directory="public/favicon_package"), name="static")
 
