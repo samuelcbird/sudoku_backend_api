@@ -1,4 +1,3 @@
-import logging
 import logic.slicer as slicer
 
 def check_length(func):
@@ -42,7 +41,6 @@ def duplicate_in_row(puzzle: list[int]) -> bool:
     slice = slicer.create_horizontal_slice(i, puzzle)
     if duplicate_in_array(slice):
       return True
-  logging.error('row')
   return False
 
 def duplicate_in_column(puzzle: list[int]) -> bool:
@@ -50,7 +48,6 @@ def duplicate_in_column(puzzle: list[int]) -> bool:
     slice = slicer.create_vertical_slice(i, puzzle)
     if duplicate_in_array(slice):
       return True
-  logging.error('col')
   return False
 
 def duplicate_in_box(puzzle: list[int]) -> bool:
@@ -60,11 +57,10 @@ def duplicate_in_box(puzzle: list[int]) -> bool:
     slice = slicer.create_square_slice(i, puzzle)
     if duplicate_in_array(slice):
       return True
-  logging.error('box')
   return False
 
 def duplicate_in_array(slice: list[int]) -> bool:
-  for given in range(1, 9):
+  for given in range(1, 10):
     if slice.count(given) > 1:
       return True
   return False

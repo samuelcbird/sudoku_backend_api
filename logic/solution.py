@@ -1,6 +1,6 @@
-from logic.iterator.iterator import Iterator
-from logic.slicer import create_horizontal_slice, create_square_slice, create_vertical_slice
-from logic.validation.validation import check_length, check_amount_of_givens, check_for_duplicate_givens
+import logic.iterator as iterator_module
+import logic.slicer as slicer
+from logic.validation import check_length, check_amount_of_givens, check_for_duplicate_givens
 
 @check_length
 @check_amount_of_givens
@@ -78,10 +78,14 @@ class Solution:
 
 
   def _backtracker(self, sudoku_puzzle: list[int]) -> list[int]:
-    iterator = Iterator()
+    iterator = iterator_module.Iterator()
     working_solution: list[int] = sudoku_puzzle.copy()
 
     while iterator.getCurrentIteration() < 81:
+      # check for unsolveable
+      if iterator.hasBeenNegative():
+        raise Exception("Puzzle appears to be unsolveable.")
+
       # check for locked value
       if sudoku_puzzle[iterator.getCurrentIteration()] > 0:
 
@@ -116,11 +120,11 @@ class Solution:
   def _number_is_valid(self, index: int, whole_puzzle: list[int]) -> bool:
     index_value = whole_puzzle[index]
 
-    if create_square_slice(index, whole_puzzle).count(index_value) > 1:
+    if slicer.create_square_slice(index, whole_puzzle).count(index_value) > 1:
       return False
-    elif create_vertical_slice(index, whole_puzzle).count(index_value) > 1:
+    elif slicer.create_vertical_slice(index, whole_puzzle).count(index_value) > 1:
       return False
-    elif create_horizontal_slice(index, whole_puzzle).count(index_value) > 1:
+    elif slicer.create_horizontal_slice(index, whole_puzzle).count(index_value) > 1:
       return False
 
     return True

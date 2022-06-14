@@ -26,11 +26,13 @@ async def solve(request: SolveRequest):
   
 @app.post('/help/', response_model=HelperResponse)
 async def help(request: HelperRequest):
-  solver = Solution(request.unsolved_puzzle, request.attempted_puzzle)
-  incorrect_indexes: list[int] = solver.show_incorrect_answers()
-  response = { 'attempted_puzzle': request.attempted_puzzle, 'incorrect_indexes': incorrect_indexes }
-
-  return JSONResponse(content=response)
+  try:
+    solver = Solution(request.unsolved_puzzle, request.attempted_puzzle)
+    incorrect_indexes: list[int] = solver.show_incorrect_answers()
+    response = { 'attempted_puzzle': request.attempted_puzzle, 'incorrect_indexes': incorrect_indexes }
+    return JSONResponse(content=response)
+  except Exception as E:
+    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(E))
 
 
 if __name__ == "__main__":
