@@ -5,7 +5,7 @@ package:
 
 provider:
   name: aws
-  runtime: python3.10.4
+  runtime: python3.9
   region: eu-west-1
   stage: ${opt:stage, "dev"}
 
@@ -19,7 +19,7 @@ custom:
       name: sudoku-backend-api-layer
       description: Sudoku backend api layer
       compatibleRuntimes:
-        - python3.10.4
+        - python3.9
 
 functions:
   app:
