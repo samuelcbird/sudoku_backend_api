@@ -1,4 +1,5 @@
-import uvicorn
+import os
+# import uvicorn
 from mangum import Mangum
 from fastapi import FastAPI, HTTPException, status
 from fastapi.responses import FileResponse, JSONResponse
@@ -7,7 +8,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from schemas.schemas import SolveRequest, HelperRequest, SolveResponse, HelperResponse
 from logic.solution import Solution
 
-app = FastAPI()
+stage = os.environ.get('STAGE', None)
+openapi_prefix = f"/{stage}" if stage else "/"
+
+app = FastAPI(title="SudokuSolverAPI", openapi_prefix=openapi_prefix)
 
 app.add_middleware(
   CORSMiddleware,
