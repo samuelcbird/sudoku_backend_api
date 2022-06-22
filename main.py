@@ -43,5 +43,8 @@ async def help(request: HelperRequest):
     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(E))
 
 
-if __name__ == "__main__":
-  uvicorn.run(app, host="0.0.0.0", port=8000)
+
+handler = Mangum(app)
+
+# if __name__ == "__main__":
+#   uvicorn.run(app, host="0.0.0.0", port=8000)
