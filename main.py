@@ -1,4 +1,5 @@
 import uvicorn
+from mangum import Mangum
 from fastapi import FastAPI, HTTPException, status
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
