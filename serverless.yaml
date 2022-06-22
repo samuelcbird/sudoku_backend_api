@@ -1,0 +1,47 @@
+service: sudoku-backend-api
+​
+package:
+  individually: true
+​
+provider:
+  name: aws
+  runtime: python3.10.4
+  region: eu-west-1
+  stage: ${opt:stage, "dev"}
+​
+plugins:
+  - serverless-python-requirements
+​
+custom:
+  pythonRequirements:
+    dockerizePip: true
+    layer:
+      name: sudoku-backend-api-layer
+      description: Sudoku backend api layer
+      compatibleRuntimes:
+        - python3.10.4
+​
+functions:
+  app:
+    package:
+      include:
+        - "main.py"
+      exclude:
+        - "requirements.txt"
+        - "package.json"
+        - "package-lock.json"
+        - ".serverless/**"
+        - ".virtualenv/**"
+        - "node_modules/**"
+        - "__pycache__/**"
+        - ".vscode/**"
+​
+    handler: main.handler
+    environment:
+      STAGE: ${self:provider.stage}
+    layers:
+      - { Ref: PythonRequirementsLambdaLayer }
+    events:
+      - http:
+          method: any
+          path: /{proxy+}

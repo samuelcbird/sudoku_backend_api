@@ -1,1 +1,9 @@
-{}
+
+{
+  "name": "sudoku_solver_api",
+  "version": "1.0.0",
+  "author": "Samuel Bird",
+  "dependencies": {
+      "serverless-python-requirements": "^5.0.1"
+  }
+}
