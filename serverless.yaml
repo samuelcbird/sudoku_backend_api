@@ -27,7 +27,6 @@ functions:
       include:
         - "main.py"
       exclude:
-        - "requirements.txt"
         - "package.json"
         - "package-lock.json"
         - ".serverless/**"

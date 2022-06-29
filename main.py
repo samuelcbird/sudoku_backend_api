@@ -1,5 +1,4 @@
 import os
-# import uvicorn
 from mangum import Mangum
 from fastapi import FastAPI, HTTPException, status
 from fastapi.responses import FileResponse, JSONResponse
@@ -8,10 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from schemas.schemas import SolveRequest, HelperRequest, SolveResponse, HelperResponse
 from logic.solution import Solution
 
-stage = os.environ.get('STAGE', None)
-openapi_prefix = f"/{stage}" if stage else "/"
-
-app = FastAPI(title="SudokuSolverAPI", openapi_prefix=openapi_prefix)
+app = FastAPI(title="SudokuSolverAPI")
 
 app.add_middleware(
   CORSMiddleware,
@@ -47,8 +43,4 @@ async def help(request: HelperRequest):
     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(E))
 
 
-
 handler = Mangum(app)
-
-# if __name__ == "__main__":
-#   uvicorn.run(app, host="0.0.0.0", port=8000)
