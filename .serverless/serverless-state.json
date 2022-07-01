@@ -6,9 +6,12 @@
     },
     "provider": {
       "name": "aws",
+      "httpApi": {
+        "cors": true
+      },
       "runtime": "python3.9",
       "region": "eu-west-1",
-      "stage": "staging",
+      "stage": "prod",
       "versionFunctions": true,
       "compiledCloudFormationTemplate": {
         "AWSTemplateFormatVersion": "2010-09-09",
@@ -86,7 +89,7 @@
           "AppLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
-              "LogGroupName": "/aws/lambda/sudoku-backend-api-staging-app"
+              "LogGroupName": "/aws/lambda/sudoku-backend-api-prod-app"
             }
           },
           "IamRoleLambdaExecution": {
@@ -115,7 +118,7 @@
                       "-",
                       [
                         "sudoku-backend-api",
-                        "staging",
+                        "prod",
                         "lambda"
                       ]
                     ]
@@ -131,7 +134,7 @@
                         ],
                         "Resource": [
                           {
-                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/sudoku-backend-api-staging*:*"
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/sudoku-backend-api-prod*:*"
                           }
                         ]
                       },
@@ -142,7 +145,7 @@
                         ],
                         "Resource": [
                           {
-                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/sudoku-backend-api-staging*:*:*"
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/sudoku-backend-api-prod*:*:*"
                           }
                         ]
                       }
@@ -156,7 +159,7 @@
                   "-",
                   [
                     "sudoku-backend-api",
-                    "staging",
+                    "prod",
                     {
                       "Ref": "AWS::Region"
                     },
@@ -173,7 +176,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/sudoku-backend-api/staging/1656420808762-2022-06-28T12:53:28.762Z/pythonRequirements.zip"
+                "S3Key": "serverless/sudoku-backend-api/prod/1656690350107-2022-07-01T15:45:50.107Z/pythonRequirements.zip"
               },
               "LayerName": "sudoku-backend-api-layer",
               "Description": "Sudoku backend api layer",
@@ -189,16 +192,16 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/sudoku-backend-api/staging/1656522618590-2022-06-29T17:10:18.590Z/app.zip"
+                "S3Key": "serverless/sudoku-backend-api/prod/1656690350107-2022-07-01T15:45:50.107Z/app.zip"
               },
               "Handler": "main.handler",
               "Runtime": "python3.9",
-              "FunctionName": "sudoku-backend-api-staging-app",
+              "FunctionName": "sudoku-backend-api-prod-app",
               "MemorySize": 1024,
               "Timeout": 6,
               "Environment": {
                 "Variables": {
-                  "STAGE": "staging"
+                  "STAGE": "prod"
                 }
               },
               "Role": {
@@ -217,20 +220,20 @@
               "AppLogGroup"
             ]
           },
-          "AppLambdaVersionguYBL1Ab3r4PT4bkv1zAlYdDzxdtEYQhMfdR06YJkk": {
+          "AppLambdaVersionPZgCsJiVwJsFzK7jfBFD3eMGSiAytpwoq7TAvEBPAw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AppLambdaFunction"
               },
-              "CodeSha256": "enflJVZOKJ8x+BAWgn6+pYudIeEptaK3NJFDQfFHmZk="
+              "CodeSha256": "TQ4pOfQAkKUBRi9RQTzX0ue4x1pgEUNVTtMdOOoG1TE="
             }
           },
           "ApiGatewayRestApi": {
             "Type": "AWS::ApiGateway::RestApi",
             "Properties": {
-              "Name": "staging-sudoku-backend-api",
+              "Name": "prod-sudoku-backend-api",
               "EndpointConfiguration": {
                 "Types": [
                   "EDGE"
@@ -300,13 +303,13 @@
               "AppLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1656522615670": {
+          "ApiGatewayDeployment1656690347258": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
               },
-              "StageName": "staging"
+              "StageName": "prod"
             },
             "DependsOn": [
               "ApiGatewayMethodProxyVarAny"
@@ -356,7 +359,7 @@
               "Ref": "ServerlessDeploymentBucket"
             },
             "Export": {
-              "Name": "sls-sudoku-backend-api-staging-ServerlessDeploymentBucketName"
+              "Name": "sls-sudoku-backend-api-prod-ServerlessDeploymentBucketName"
             }
           },
           "PythonRequirementsLambdaLayerQualifiedArn": {
@@ -365,30 +368,30 @@
               "Ref": "PythonRequirementsLambdaLayer"
             },
             "Export": {
-              "Name": "sls-sudoku-backend-api-staging-PythonRequirementsLambdaLayerQualifiedArn"
+              "Name": "sls-sudoku-backend-api-prod-PythonRequirementsLambdaLayerQualifiedArn"
             }
           },
           "PythonRequirementsLambdaLayerHash": {
             "Description": "Current Lambda layer hash",
             "Value": "ac42727a0c440730f73df3e8a6d4240b2c75dcbb",
             "Export": {
-              "Name": "sls-sudoku-backend-api-staging-PythonRequirementsLambdaLayerHash"
+              "Name": "sls-sudoku-backend-api-prod-PythonRequirementsLambdaLayerHash"
             }
           },
           "PythonRequirementsLambdaLayerS3Key": {
             "Description": "Current Lambda layer S3Key",
-            "Value": "serverless/sudoku-backend-api/staging/1656420808762-2022-06-28T12:53:28.762Z/pythonRequirements.zip",
+            "Value": "serverless/sudoku-backend-api/prod/1656690350107-2022-07-01T15:45:50.107Z/pythonRequirements.zip",
             "Export": {
-              "Name": "sls-sudoku-backend-api-staging-PythonRequirementsLambdaLayerS3Key"
+              "Name": "sls-sudoku-backend-api-prod-PythonRequirementsLambdaLayerS3Key"
             }
           },
           "AppLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AppLambdaVersionguYBL1Ab3r4PT4bkv1zAlYdDzxdtEYQhMfdR06YJkk"
+              "Ref": "AppLambdaVersionPZgCsJiVwJsFzK7jfBFD3eMGSiAytpwoq7TAvEBPAw"
             },
             "Export": {
-              "Name": "sls-sudoku-backend-api-staging-AppLambdaFunctionQualifiedArn"
+              "Name": "sls-sudoku-backend-api-prod-AppLambdaFunctionQualifiedArn"
             }
           },
           "ServiceEndpoint": {
@@ -409,12 +412,12 @@
                   {
                     "Ref": "AWS::URLSuffix"
                   },
-                  "/staging"
+                  "/prod"
                 ]
               ]
             },
             "Export": {
-              "Name": "sls-sudoku-backend-api-staging-ServiceEndpoint"
+              "Name": "sls-sudoku-backend-api-prod-ServiceEndpoint"
             }
           }
         }
@@ -538,7 +541,7 @@
         },
         "handler": "main.handler",
         "environment": {
-          "STAGE": "staging"
+          "STAGE": "prod"
         },
         "layers": {
           "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"AppLambdaFunction\"][\"Properties\"][\"Layers\"]"
@@ -552,13 +555,13 @@
             }
           }
         ],
-        "name": "sudoku-backend-api-staging-app",
+        "name": "sudoku-backend-api-prod-app",
         "module": ".",
         "memory": 1024,
         "timeout": 6,
         "runtime": "python3.9",
         "vpc": {},
-        "versionLogicalId": "AppLambdaVersionguYBL1Ab3r4PT4bkv1zAlYdDzxdtEYQhMfdR06YJkk"
+        "versionLogicalId": "AppLambdaVersionPZgCsJiVwJsFzK7jfBFD3eMGSiAytpwoq7TAvEBPAw"
       }
     },
     "configValidationMode": "warn",
@@ -567,8 +570,8 @@
       "service": "sudoku-backend-api",
       "package": {
         "individually": true,
-        "artifactsS3KeyDirname": "serverless/sudoku-backend-api/staging/code-artifacts",
-        "artifactDirectoryName": "serverless/sudoku-backend-api/staging/1656522618590-2022-06-29T17:10:18.590Z"
+        "artifactsS3KeyDirname": "serverless/sudoku-backend-api/prod/code-artifacts",
+        "artifactDirectoryName": "serverless/sudoku-backend-api/prod/1656690350107-2022-07-01T15:45:50.107Z"
       },
       "provider": {
         "$ref": "$[\"service\"][\"provider\"]"
@@ -591,15 +594,14 @@
         "compatibleRuntimes": {
           "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"PythonRequirementsLambdaLayer\"][\"Properties\"][\"CompatibleRuntimes\"]"
         },
-        "package": {},
-        "artifactAlreadyUploaded": true
+        "package": {}
       }
     },
     "isDashboardMonitoringPreconfigured": false
   },
   "package": {
     "individually": true,
-    "artifactDirectoryName": "serverless/sudoku-backend-api/staging/1656522618590-2022-06-29T17:10:18.590Z",
+    "artifactDirectoryName": "serverless/sudoku-backend-api/prod/1656690350107-2022-07-01T15:45:50.107Z",
     "artifact": ""
   }
 }

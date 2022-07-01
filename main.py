@@ -21,7 +21,7 @@ app.mount("/static", StaticFiles(directory="public/favicon_package"), name="stat
 async def root():
   return FileResponse("public/index.html")
 
-@app.post('/solve/', response_model=SolveResponse)
+@app.post('/solve', response_model=SolveResponse)
 async def solve(request: SolveRequest):
   try:
     solver = Solution(request.puzzle)
@@ -32,7 +32,7 @@ async def solve(request: SolveRequest):
     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(E))
 
   
-@app.post('/help/', response_model=HelperResponse)
+@app.post('/help', response_model=HelperResponse)
 async def help(request: HelperRequest):
   try:
     solver = Solution(request.unsolved_puzzle, request.attempted_puzzle)
